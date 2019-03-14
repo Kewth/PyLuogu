@@ -7,6 +7,7 @@ def print_content(html):
     label = ''
     text = ''
     to_be_print = []
+    in_tex = False
     for char in html:
         if char == '<':
             label = '<'
@@ -15,6 +16,15 @@ def print_content(html):
         elif char == '>':
             to_be_print.append(label + '>')
             label = ''
+        elif char == '$' and label == '':
+            to_be_print.append(text)
+            text = ''
+            if in_tex:
+                to_be_print.append('</tex>')
+                in_tex = False
+            else:
+                to_be_print.append('<tex>')
+                in_tex = True
         elif label != '':
             label += char
         else:
@@ -38,6 +48,10 @@ def print_content(html):
             print(colorama.Style.BRIGHT, end='>')
         elif content == '</strong>':
             print(colorama.Style.NORMAL, end='<')
+        elif content == '<tex>':
+            print(colorama.Fore.BLUE, end=' ')
+        elif content == '</tex>':
+            print(colorama.Fore.RESET, end=' ')
         elif content == '<pre>':
             print(colorama.Fore.CYAN)
         elif content == '</pre>':
@@ -52,7 +66,6 @@ def print_content(html):
                     colorama.Fore.RESET, end='')
         elif ignore == 0:
             print(content.replace('&lt;', '<').replace('&gt;', '>'), end='')
-    # print(html)
 
 def print_title(tree):
     '打印标题'
