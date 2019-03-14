@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 '获取指定题目页面'
 from urllib import request
 import sys
@@ -12,4 +11,7 @@ def read(problem_id):
     _print.print_html(html)
 
 if __name__ == '__main__':
-    read(sys.argv[1])
+    try:
+        read(sys.argv[1])
+    except IndexError:
+        print('请给出参数')

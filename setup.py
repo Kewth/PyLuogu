@@ -1,8 +1,8 @@
-from setuptools import setup
+from distutils.core import setup
 
 setup(
     name='PyLuogu',
     version='0.9',
-    package_dir={'': 'source'},
-    packages=[''],
+    package_dir={'PyLuogu': 'source'},
+    packages=['PyLuogu'],
     )

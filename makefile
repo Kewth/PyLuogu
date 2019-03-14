@@ -1,4 +1,4 @@
-~/.local/bin/PyLuogu: dist/PyLuogu.py source/
+~/.local/bin/PyLuogu: dist/main.py source/ setup.py
 	pip3 install ./ --user
-	cp dist/PyLuogu.py ~/.local/bin/PyLuogu
+	cp dist/main.py ~/.local/bin/PyLuogu
 	chmod +x ~/.local/bin/PyLuogu
