@@ -142,8 +142,8 @@ def print_note(tree):
                 content += j.__str__() + '\n'
             print_content(content)
 
-def print_html(html):
-    '解析 html 并打印'
+def print_problem_html(html):
+    '解析题目的 [html] 并打印'
     tree = BeautifulSoup(html, 'lxml')
     print_title(tree)
     print_difficulty(tree)

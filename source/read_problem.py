@@ -8,7 +8,7 @@ def read(problem_id):
     html = request.urlopen( \
             'https://www.luogu.org/problemnew/show/{}'.format( \
             problem_id)).read().decode('utf-8')
-    _print.print_html(html)
+    _print.print_problem_html(html)
 
 if __name__ == '__main__':
     try:
