@@ -4,38 +4,39 @@ import argparse
 from PyLuogu import read_problem
 from PyLuogu import read_task
 
+def __func_problem__(args):
+    read_problem.read(args.pid)
+
+def __func_task__(args):
+    # TODO
+    pass
+
+def __func_login__(args):
+    # TODO
+    pass
+
 def init_args():
     '初始化参数'
     parser = argparse.ArgumentParser(description='''
 在终端，享受 Coding 的快乐
                 ''')
-    parser.add_argument('-p', '--problem', action='append',
-                        help='在洛谷阅读题目 [PROBLEM]')
-    parser.add_argument('-t', '--task', action='store_true',
-                        help='读取任务计划，需要用户信息')
-    parser.add_argument('-c', '--cid', action='append',
-                        help='给定用户的 __client_id')
-    parser.add_argument('-u', '--uid', action='append',
-                        help='给定用户的 _uid')
-    return parser.parse_args()
+    sub_parser = parser.add_subparsers(dest='subcommands')
+    parser_problem = sub_parser.add_parser('problem', help='在洛谷阅读题目')
+    parser_problem.set_defaults(func=__func_problem__)
+    parser_problem.add_argument('pid', help='题目的题号')
+    parser_task = sub_parser.add_parser('task', help='洛谷任务计划')
+    parser_task.set_defaults(func=__func_task__)
+    return parser
 
 def main():
     '运行 PyLuogu'
-    args = init_args()
-    cid, uid = None, None
-    if args.cid:
-        cid = args.cid[0]
-    if args.uid:
-        uid = args.uid[0]
-    if args.problem:
-        read_problem.read(args.problem[0])
-    elif args.task:
-        if not uid:
-            print('未给定 uid')
-        if not cid:
-            print('未给定 cid')
-        if cid and uid:
-            read_task.read(cid, uid)
+    parser = init_args()
+    args = parser.parse_args()
+    if not args.subcommands:
+        print('Error: 未给出子命令')
+        parser.print_help()
+        exit(1)
+    args.func(args)
 
 if __name__ == '__main__':
     main()
