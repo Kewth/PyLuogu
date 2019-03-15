@@ -1,6 +1,16 @@
 '用户信息管理'
 from PyLuogu import _config
 
+def get_cid():
+    '获取 __client_id'
+    config = _config.load()
+    return config.get('cid')
+
+def get_uid():
+    '获取 _uid'
+    config = _config.load()
+    return config.get('uid')
+
 def login(cid, uid):
     '记录 __client_id = [cid], _uid = [uid] 登录信息'
     config = _config.load()

@@ -9,8 +9,7 @@ def __func_problem__(args):
     read_problem.read(args.pid)
 
 def __func_task__(args):
-    # TODO
-    pass
+    read_task.read(user_management.get_cid(), user_management.get_uid())
 
 def __func_login__(args):
     if args.learn:
