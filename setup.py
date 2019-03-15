@@ -10,5 +10,6 @@ setup(
         'bs4',
         'colorama',
         'lxml',
+        'requests',
     ],
     )
