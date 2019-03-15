@@ -142,6 +142,18 @@ def print_note(tree):
                 content += j.__str__() + '\n'
             print_content(content)
 
+def print_problem_list(html):
+    '解析题目列表的 [html] 并打印'
+    tree = BeautifulSoup(html, 'lxml')
+    print_title(tree)
+    cnt = 0
+    for i in tree.find_all('a'):
+        if i.get('target') and i.get('href')[:17] == '/problemnew/show/':
+            print(i.get('href')[17:], i.text)
+            cnt += 1
+    if cnt == 0:
+        print('未搜索到匹配的题目！')
+
 def print_problem_html(html):
     '解析题目的 [html] 并打印'
     tree = BeautifulSoup(html, 'lxml')
