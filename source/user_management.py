@@ -1,6 +1,6 @@
 '用户信息管理'
-import requests
 from PyLuogu import _config
+from PyLuogu import _link
 
 def get_cid():
     '获取 __client_id'
@@ -14,13 +14,7 @@ def get_uid():
 
 def check_user(cid, uid):
     '检查用户是否登陆成功'
-    page = requests.get('https://www.luogu.org/', headers={ \
-            'user-agent': \
-            'Mozilla/5.0 (X11; Linux x86_64) \
-            AppleWebKit/537.36 (KHTML, like Gecko) \
-            Chrome/72.0.3626.121 Safari/537.36', \
-            'cookie': \
-            '__client_id={}; _uid={}'.format(cid, uid)})
+    page = _link.get_page('https://www.luogu.org', cid, uid)
     return page.text.find('任务计划') != -1
 
 def login(cid, uid):

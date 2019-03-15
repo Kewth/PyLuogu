@@ -3,17 +3,11 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 from PyLuogu import _print
+from PyLuogu import _link
 
 def read(cid, uid):
     '打印任务计划，需要 cookies __client_id=[cid], _uid=[uid]'
-    headers = { \
-            'user-agent': \
-            'Mozilla/5.0 (X11; Linux x86_64) \
-            AppleWebKit/537.36 (KHTML, like Gecko) \
-            Chrome/72.0.3626.121 Safari/537.36', \
-            'cookie': \
-            '__client_id={}; _uid={}'.format(cid, uid)}
-    page = requests.get('https://www.luogu.org/', headers=headers)
+    page = _link.get_page('https://www.luogu.org', cid, uid)
     # XXX
     html = page.text
     print('你的任务计划：')
