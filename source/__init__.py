@@ -6,7 +6,10 @@ from PyLuogu import read_task
 from PyLuogu import user_management
 
 def __func_problem__(args):
-    read_problem.read(args.pid)
+    if args.search:
+        read_problem.search(args.search)
+    else:
+        read_problem.read(args.pid)
 
 def __func_task__(args):
     read_task.read(user_management.get_cid(), user_management.get_uid())
@@ -30,7 +33,9 @@ def init_args():
     parser_problem = sub_parser.add_parser('problem', \
             help='在洛谷阅读题目', description='输出经过处理的题目')
     parser_problem.set_defaults(func=__func_problem__)
-    parser_problem.add_argument('pid', help='题目的题号')
+    parser_problem.add_argument('pid', nargs='?', help='题目的题号')
+    parser_problem.add_argument('-s', '--search', action='store', \
+            help='按题目名搜索')
     parser_task = sub_parser.add_parser('task', help='洛谷任务计划', \
             description='查看洛谷的任务计划（需要登录）')
     parser_task.set_defaults(func=__func_task__)
