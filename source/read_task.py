@@ -21,11 +21,6 @@ def read(cid, uid):
             break
         end -= 2
         begin = html[:end].rfind('data-pid="') + 10
-        # print()
-        # print(begin, end)
-        # print(html[begin-10:begin+10])
-        # print(html[end-10:end+10])
-        # print()
         if begin > end:
             break
         print(html[begin:end])
