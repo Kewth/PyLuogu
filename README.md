@@ -9,7 +9,7 @@
 ## 安装
 
 ```bash
-git clone add origin https://www.github.com/Kewth/PyLuogu.git
+git clone https://www.github.com/Kewth/PyLuogu.git
 cd PyLuogu
 make
 ```
