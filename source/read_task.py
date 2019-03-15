@@ -19,9 +19,9 @@ def read(cid, uid):
         begin = html[:end].rfind('data-pid="') + 10
         if begin > end:
             break
-        problem = requests.get( \
+        problem = _link.get_page( \
                 'https://www.luogu.org/problemnew/show/{}'.format( \
-                html[begin:end]), headers=headers)
+                html[begin:end]), cid, uid)
         tree = BeautifulSoup(problem.text, 'lxml')
         _print.print_title(tree)
         html = html[end + 6:]
