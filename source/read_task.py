@@ -1,4 +1,5 @@
 '获取任务计划'
+import re
 import sys
 import requests
 from bs4 import BeautifulSoup
@@ -8,23 +9,15 @@ from PyLuogu import _link
 def read(cid, uid):
     '打印任务计划，需要 cookies __client_id=[cid], _uid=[uid]'
     page = _link.get_page('https://www.luogu.org', cid, uid)
-    # XXX
     html = page.text
+    task_list = re.findall(r'tasklist-item.*?(<b>.*?</a>)', html, re.S)
+
     print('你的任务计划：')
-    while True:
-        end = html.find('完成任务')
-        if end == -1:
-            break
-        end -= 2
-        begin = html[:end].rfind('data-pid="') + 10
-        if begin > end:
-            break
-        problem = _link.get_page( \
-                'https://www.luogu.org/problemnew/show/{}'.format( \
-                html[begin:end]), cid, uid)
-        tree = BeautifulSoup(problem.text, 'lxml')
-        _print.print_title(tree)
-        html = html[end + 6:]
+    for task in task_list:
+        problem_id = re.search(r'<b> *([^<]*) *</b>', task).group(1)
+        problem_name = re.search(r'</b> *([^<]*) *</a>', task).group(1)
+        _print.print_title(BeautifulSoup('<title>' + problem_id + ' ' +
+            problem_name + '</title>', 'lxml'))
 
 if __name__ == '__main__':
     try:
