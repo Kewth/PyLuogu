@@ -17,7 +17,7 @@ def read(cid, uid):
         problem_id = re.search(r'<b> *([^<]*) *</b>', task).group(1)
         problem_name = re.search(r'</b> *([^<]*) *</a>', task).group(1)
         _print.print_title(BeautifulSoup('<title>' + problem_id + ' ' +
-            problem_name + '</title>'))
+            problem_name + '</title>', 'lxml'))
 
 if __name__ == '__main__':
     try:
